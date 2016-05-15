@@ -1,0 +1,126 @@
+<div class="container-fluid">
+
+  <div class="col-md-2">
+    <%= render 'shared/side_navbar' %>
+    <div class="row">
+      <div class="col-md-2">
+        <%= link_to 'Edit Stat', edit_user_swim_stat_path(current_user, @swim_stat), class: "btn btn-default side-nav-btn" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-7">
+    <div class="row">
+      <div class="col-md-3">DATE:</div>
+      <div class="col-md-2"><%= @swim_stat.date  %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">WARM UP 50:</div>
+      <div class="col-md-2"><%= @swim_stat.warm_50 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">WARM UP 100:</div>
+      <div class="col-md-2"><%= @swim_stat.warm_100 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">WARM UP 200:</div>
+      <div class="col-md-2"><%= @swim_stat.warm_200 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">WARM UP 400:</div>
+      <div class="col-md-2"><%= @swim_stat.warm_400 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">PRE SET 50:</div>
+        <div class="col-md-2"><%= @swim_stat.pre_50 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">FIRST 500:</div>
+      <div class="col-md-2"><%= @swim_stat.first_500 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">SECOND 500:</div>
+      <div class="col-md-2"><%= @swim_stat.second_500 %></div>
+      </div>
+    <div class="row">
+      <div class="col-md-3">THIRD 500:</div>
+        <div class="col-md-2"><%= @swim_stat.third_500 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">FOURTH 500:</div>
+        <div class="col-md-2"><%= @swim_stat.fourth_500 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">LAST 100 SET:</div>
+      <div class="col-md-2"><%= @swim_stat.set_100 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">POST SET 50:</div>
+      <div class="col-md-2"><%= @swim_stat.post_50 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">COOL 400:</div>
+      <div class="col-md-2"><%= @swim_stat.cool_400 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">COOL 200:</div>
+      <div class="col-md-2"><%= @swim_stat.cool_200 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">COOL 100:</div>
+      <div class="col-md-2"><%= @swim_stat.cool_100 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">COOL 50:</div>
+      <div class="col-md-2"><%= @swim_stat.cool_50 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">SET DISTANCE:</div>
+      <div class="col-md-2"><%= @swim_stat.set_distance %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">SET TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.set_time %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">FIRST 800 TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.first_800_time %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">SECOND 800 TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.second_800_time %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">FIRST KM TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.first_km_time %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">SECOND KM TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.second_km_time %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">1500 TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.time_1500 %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">MILE TIME:</div>
+      <div class="col-md-2"><%=  %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">TOTAL DISTANCE:</div>
+      <div class="col-md-2"><%= @swim_stat.total_distance %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">SWIM TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.swim_time %></div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">TOTAL TIME:</div>
+      <div class="col-md-2"><%= @swim_stat.total_time %></div>
+    </div>
+
+  </div>
+
+</div>
+
+(swim_stat#show page)
