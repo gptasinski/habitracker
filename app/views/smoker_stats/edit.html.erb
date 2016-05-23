@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class="col-md-2">
     <%= render '/shared/side_navbar' %>
     <div class="row">
@@ -8,27 +8,12 @@
 
   <div class="col-md-offset-1 col-md-4">
     <%= form_for [current_user, @smoker_stat], method: :patch, class: "form-horizontal" do |form| %>
-
-      <div class="form-group">
-        <%= form.label :date, class: "col-md-2 control-label" %>
-          <div class="col-md-10">
-            <%= form.text_field :date, class: "col-md-4 form-control" %>
-          </div>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :amount, class: "col-md-2 control-label" %>
-          <div class="col-md-10">
-            <%= form.text_field :amount, class: "col-md-4 form-control" %>
-          </div>
-      </div>
-
+      <%= render partial: 'form', locals: { form: form } %>
       <div class="form-group">
         <div class="col-md-offset-9 col-md-4">
-          <%= button_to 'Add Stat', new_user_smoker_stat_path(current_user, @smokerstat), class: "btn btn-default" %>
+          <%= button_to 'Update Stat', new_user_smoker_stat_path(current_user, @smokerstat), class: "btn btn-default" %>
         </div>
       </div>
-
     <% end %>
   </div>
 </div>
