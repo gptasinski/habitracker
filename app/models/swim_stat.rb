@@ -42,69 +42,75 @@ class SwimStat < ActiveRecord::Base
     hndth_times.reduce(0) { |sum, time| sum += time }
   end
 
-  def set_km_time(stat)
-    if stat.first_500 != "0" && stat.second_500 != "0"
-      km_in_hndths = add_times([stat.first_500, stat.second_500])
-      stat.first_km_time = revert_to_minutes(km_in_hndths)
-      stat.save
+  def set_km_time
+    if self.first_500 != "0" && self.second_500 != "0"
+      km_in_hndths = add_times([self.first_500, self.second_500])
+      self.first_km_time = revert_to_minutes(km_in_hndths)
+      # self.save
     end
   end
 
-  def set_1500_time(stat)
-    if stat.first_km_time != nil && stat.third_500 != "0"
-      time_in_hndths = add_times([stat.first_500, stat.second_500, stat.third_500])
-      stat.time_1500 = revert_to_minutes(time_in_hndths)
-      stat.save
+  def set_1500_time
+    if self.first_km_time != nil && self.third_500 != "0"
+      time_in_hndths = add_times([self.first_500, self.second_500, self.third_500])
+      self.time_1500 = revert_to_minutes(time_in_hndths)
+      # self.save
     end
   end
 
-  def set_second_km_time(stat)
-    if stat.fourth_500 == "0" || stat.fourth_500 == nil
-      stat.second_km_time = "0"
+  def set_second_km_time
+    if self.fourth_500 == "0" || self.fourth_500 == nil
+      self.second_km_time = "0"
     else
-      time = add_times([stat.third_500, stat.fourth_500])
-      stat.second_km_time = revert_to_minutes(time)
+      time = add_times([self.third_500, self.fourth_500])
+      self.second_km_time = revert_to_minutes(time)
     end
-    stat.save
+    # self.save
   end
 
-  def set_2km_time(stat)
-    two_km = add_times([stat.first_500, stat.second_500, stat.third_500, stat.fourth_500])
+  def set_2km_time
+    two_km = add_times([self.first_500, self.second_500, self.third_500, self.fourth_500])
     time = revert_to_minutes(two_km)
+    self.time_2km = time
+    # self.save
   end
 
-  def set_mile_time(stat)
-    time = add_times([stat.first_500, stat.second_500, stat.third_500, stat.set_100])
-    stat.mile_time = revert_to_minutes(time)
-    stat.save
+  def set_mile_time
+    time = add_times([self.first_500, self.second_500, self.third_500, self.set_100])
+    self.mile_time = revert_to_minutes(time)
+    # self.save
   end
 
-  def swim_set_time(stat)
-    if stat.set_distance == 500
-      stat.set_time = stat.first_500
-      stat.save
-    elsif stat.set_distance == 1000
-      stat.set_time = stat.first_km_time
-      stat.save
-    elsif stat.set_distance == 1500
-      stat.set_time = stat.time_1500
-      stat.save
-    elsif stat.set_distance == 1600
-      stat.set_time = stat.mile_time
-      stat.save
+  def swim_set_time
+    if self.set_distance == 500
+      self.set_time = self.first_500
+      # self.save
+    elsif self.set_distance == 1000
+      self.set_time = self.first_km_time
+      # self.save
+    elsif self.set_distance == 1500
+      self.set_time = self.time_1500
+      # self.save
+    elsif self.set_distance == 1600
+      self.set_time = self.mile_time
+      # self.save
     else
-      stat.set_time = set_2km_time(stat)
-      stat.save
+      self.set_time = set_2km_time
+      # self.save
     end
   end
 
-  def set_times(stat)
-    set_km_time(stat)
-    set_second_km_time(stat)
-    set_1500_time(stat)
-    set_mile_time(stat)
-    swim_set_time(stat)
+  def set_times
+    set_km_time
+    set_second_km_time
+    set_1500_time
+    set_mile_time
+    swim_set_time
   end
+
+
+
+
 
 
 end

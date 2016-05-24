@@ -24,8 +24,8 @@ class SwimStatsController < ApplicationController
   def create
     @user = User.find(session[:id])
     @swim_stat = SwimStat.new(swim_stat_params)
+    @swim_stat.set_times
     if @swim_stat.save
-      @swim_stat.set_times(@swim_stat)
       @user.swim_stats << @swim_stat
       redirect_to user_swim_stats_path(@user)
     else
