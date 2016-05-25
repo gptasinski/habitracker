@@ -1,7 +1,8 @@
 class SmokerStatsController < ApplicationController
+  before_action :find_user, except: [:new, :edit]
+  before_action :find_smoker_stat, only: [:edit, :update, :destroy]
 
   def index
-    @user = User.find(session[:id])
     @smokerstats = @user.smoker_stats
   end
 
@@ -10,11 +11,9 @@ class SmokerStatsController < ApplicationController
   end
 
   def edit
-    @smoker_stat = SmokerStat.find(params[:id])
   end
 
   def create
-    @user = User.find_by(id: session[:id])
     @smokerstat = SmokerStat.new(smoker_stat_params)
     if @smokerstat.save
       @user.smoker_stats << @smokerstat
@@ -24,13 +23,7 @@ class SmokerStatsController < ApplicationController
     end
   end
 
-  def edit
-    @smoker_stat = SmokerStat.find(params[:id])
-  end
-
   def update
-    @user = User.find(session[:id])
-    @smoker_stat = SmokerStat.find(params[:id])
     if @smoker_stat.update(smoker_stat_params)
       redirect_to user_smoker_stats_path(@user)
     else
@@ -39,8 +32,6 @@ class SmokerStatsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(session[:id])
-    @smoker_stat = SmokerStat.find(params[:id])
     @smoker_stat.destroy
     redirect_to user_smoker_stats_path(@user)
   end

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: :show
 
   def show
-    @user = User.find(session[:id])
   end
 
   def new
