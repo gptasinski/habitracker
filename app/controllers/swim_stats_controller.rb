@@ -36,7 +36,11 @@ class SwimStatsController < ApplicationController
   def update
     @user = User.find(session[:id])
     @swim_stat = SwimStat.find_by(id: params[:id])
+    @swim_stat.set_times
+    @swim_stat.save
     if @swim_stat.update(swim_stat_params)
+      # @swim_stat.set_times
+      # @swim_stat.save
       redirect_to user_swim_stats_path(@user)
     else
       render 'edit'
