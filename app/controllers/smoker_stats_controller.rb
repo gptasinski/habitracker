@@ -9,6 +9,10 @@ class SmokerStatsController < ApplicationController
     @smoker_stat = SmokerStat.new
   end
 
+  def edit
+    @smoker_stat = SmokerStat.find(params[:id])
+  end
+
   def create
     @user = User.find_by(id: session[:id])
     @smokerstat = SmokerStat.new(smoker_stat_params)
