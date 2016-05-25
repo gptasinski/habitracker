@@ -1,28 +1,22 @@
 class SwimStatsController < ApplicationController
-
+  before_action :find_user
+  before_action :find_swim_stat, except: [:new, :create]
 
   def index
-    @user = User.find(session[:id])
     @swim_stats = @user.swim_stats
   end
 
   def show
-    @user = User.find(session[:id])
-    @swim_stat = SwimStat.find(params[:id])
   end
 
   def new
-    @user = User.find(session[:id])
     @swim_stat = SwimStat.new
   end
 
   def edit
-    @user = User.find(session[:id])
-    @swim_stat = SwimStat.find_by(id: params[:id])
   end
 
   def create
-    @user = User.find(session[:id])
     @swim_stat = SwimStat.new(swim_stat_params)
     @swim_stat.set_times
     if @swim_stat.save
@@ -34,13 +28,9 @@ class SwimStatsController < ApplicationController
   end
 
   def update
-    @user = User.find(session[:id])
-    @swim_stat = SwimStat.find_by(id: params[:id])
     @swim_stat.set_times
     @swim_stat.save
     if @swim_stat.update(swim_stat_params)
-      # @swim_stat.set_times
-      # @swim_stat.save
       redirect_to user_swim_stats_path(@user)
     else
       render 'edit'
@@ -48,8 +38,6 @@ class SwimStatsController < ApplicationController
   end
 
   def destroy
-    @user = User.find(session[:id])
-    @swim_stat = SwimStat.find_by(id: params[:id])
     @swim_stat.destroy
     redirect_to user_swim_stats_path(@user)
   end
