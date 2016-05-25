@@ -4,6 +4,11 @@
     <%= render 'shared/side_navbar' %>
   </div>
   <div class="col-md-10">
+    <% if @swim_stat.errors.any? %>
+      <% @swim_stat.errors.full_messages.each do |msg| %>
+        <%= msg %>
+        <% end %>
+    <% end %>
     <div class="row">
       <%= form_for [current_user, @swim_stat], class: "form-horizontal" do |form| %>
 
