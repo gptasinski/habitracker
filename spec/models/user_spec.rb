@@ -7,7 +7,7 @@ describe "User" do
     expect(test.name).to eq("greg")
   end
 
-  it "should have a email" do
+  it "should have an email" do
     expect(test.email).to eq("greg@gmail.com")
   end
 
