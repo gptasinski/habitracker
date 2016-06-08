@@ -28,9 +28,8 @@ class SwimStatsController < ApplicationController
   end
 
   def update
-    @swim_stat.set_times
-    @swim_stat.save
     if @swim_stat.update(swim_stat_params)
+      reset_times(@swim_stat)
       redirect_to user_swim_stats_path(@user)
     else
       render 'edit'
@@ -44,6 +43,11 @@ class SwimStatsController < ApplicationController
 
   private
     def swim_stat_params
-      params.require(:swim_stat).permit(:date, :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :first_500, :second_500, :third_500, :fourth_500, :set_100, :post_50, :cool_400, :cool_200, :cool_100, :cool_50, :set_distance, :total_distance, :swim_time, :total_time)
+      params.require(:swim_stat).permit(:date, :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :first_500, :set_300, :second_500, :third_500, :fourth_500, :set_100, :post_50, :cool_400, :cool_200, :cool_100, :cool_50, :set_distance, :total_distance, :swim_time, :total_time)
+    end
+
+    def reset_times(stat)
+      stat.set_times
+      stat.save
     end
 end
