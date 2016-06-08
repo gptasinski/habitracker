@@ -44,6 +44,22 @@ class SwimStat < ActiveRecord::Base
     hndth_times.reduce(0) { |sum, time| sum += time }
   end
 
+  def set_800_time
+    if self.set_300 != "0"
+      time_in_hndths = add_times([self.first_500, self.set_300])
+      self.first_800_time = revert_to_minutes(time_in_hndths)
+    end
+  end
+
+  def set_second_800_time
+    if self.set_100 != "0"
+      mile = convert_to_hundredths(self.mile_time)
+      first_800 = convert_to_hundredths(self.first_800_time)
+      second_in_hunds = mile - first_800
+      self.second_800_time = revert_to_minutes(second_in_hunds)
+    end
+  end
+
   def set_km_time
     if self.first_500 != "0" && self.second_500 != "0"
       km_in_hndths = add_times([self.first_500, self.second_500])
@@ -66,7 +82,7 @@ class SwimStat < ActiveRecord::Base
   end
 
   def set_2km_time
-    if self.second_km_time != "0"
+    if self.second_km_time != nil
       two_km = add_times([self.first_500, self.second_500, self.third_500, self.fourth_500])
       time = revert_to_minutes(two_km)
       self.time_2km = time
@@ -74,7 +90,7 @@ class SwimStat < ActiveRecord::Base
   end
 
   def set_mile_time
-    if self.set_100 != "0"
+    if self.set_100 != "0"  || self.set_100 == nil
       time = add_times([self.first_500, self.second_500, self.third_500, self.set_100])
       self.mile_time = revert_to_minutes(time)
     end
@@ -89,16 +105,21 @@ class SwimStat < ActiveRecord::Base
       self.set_time = self.time_1500
     elsif self.set_distance == 1600
       self.set_time = self.mile_time
-    else
+    elsif self.set_distance == 2000
       self.set_time = set_2km_time
+    else
+      self.set_time = "0"
     end
   end
 
   def set_times
     set_km_time
     set_second_km_time
+    set_2km_time
     set_1500_time
     set_mile_time
+    set_800_time
+    set_second_800_time
     swim_set_time
   end
 
