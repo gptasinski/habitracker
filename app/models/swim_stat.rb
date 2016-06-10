@@ -44,10 +44,14 @@ class SwimStat < ActiveRecord::Base
     hndth_times.reduce(0) { |sum, time| sum += time }
   end
 
+  def find_time(times)
+    time_in_hundredths = add_times(times)
+    revert_to_minutes(time_in_hundredths)
+  end
+
   def set_800_time
     if self.set_300 != "0"
-      time_in_hndths = add_times([self.first_500, self.set_300])
-      self.first_800_time = revert_to_minutes(time_in_hndths)
+      self.first_800_time = find_time([self.first_500, self.set_300])
     end
   end
 
@@ -62,37 +66,31 @@ class SwimStat < ActiveRecord::Base
 
   def set_km_time
     if self.first_500 != "0" && self.second_500 != "0"
-      km_in_hndths = add_times([self.first_500, self.second_500])
-      self.first_km_time = revert_to_minutes(km_in_hndths)
+      self.first_km_time = find_time([self.first_500, self.second_500])
     end
   end
 
   def set_1500_time
     if self.third_500 != "0"
-      time_in_hndths = add_times([self.first_500, self.second_500, self.third_500])
-      self.time_1500 = revert_to_minutes(time_in_hndths)
+      self.time_1500 = find_time([self.first_500, self.second_500, self.third_500])
     end
   end
 
   def set_second_km_time
     if self.fourth_500 != "0"
-      time = add_times([self.third_500, self.fourth_500])
-      self.second_km_time = revert_to_minutes(time)
+      self.second_km_time = find_time([self.third_500, self.fourth_500])
     end
   end
 
   def set_2km_time
     if self.second_km_time != nil
-      two_km = add_times([self.first_500, self.second_500, self.third_500, self.fourth_500])
-      time = revert_to_minutes(two_km)
-      self.time_2km = time
+      self.time_2km = find_time([self.first_500, self.second_500, self.third_500, self.fourth_500])
     end
   end
 
   def set_mile_time
     if self.set_100 != "0"  || self.set_100 == nil
-      time = add_times([self.first_500, self.second_500, self.third_500, self.set_100])
-      self.mile_time = revert_to_minutes(time)
+      self.mile_time = find_time([self.first_500, self.second_500, self.third_500, self.set_100])
     end
   end
 
