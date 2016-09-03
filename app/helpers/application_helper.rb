@@ -20,4 +20,6 @@ module ApplicationHelper
     @swim_stat = SwimStat.find_by(id: params[:id])
   end
 
+
+
 end
