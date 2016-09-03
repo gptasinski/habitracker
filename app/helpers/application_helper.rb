@@ -20,6 +20,13 @@ module ApplicationHelper
     @swim_stat = SwimStat.find_by(id: params[:id])
   end
 
+  def current_year
+      Time.now.year.to_s[2..3]
+    end
+
+    def last_year
+      (current_year.to_i - 1).to_s
+    end
 
 
 end
