@@ -11,26 +11,22 @@ class SmokerStat < ActiveRecord::Base
   end
 
   def self.user_daily_cost_ave(user, location)
-    stats = user_stats(user)
-    costs = location_costs(stats, location)
+    costs = location_costs(user_stats(user), location)
     find_average(costs)
   end
 
   def self.user_daily_amount_ave(user)
-    stats = user_stats(user)
-    amounts = gather_amounts(stats)
+    amounts = gather_amounts(user_stats(user))
     find_average(amounts)
   end
 
   def self.user_year_amount(year, user)
-    stats = year_stats(user, year)
-    amounts = gather_amounts(stats)
+    amounts = gather_amounts(year_stats(user, year))
     reduce_amounts(amounts)
   end
 
   def self.user_year_cost(year, user, location)
-    stats = year_stats(user, year)
-    amounts = location_costs(stats)
+    amounts = location_costs(year_stats(user, year), location)
     reduce_amounts(amounts)
   end
 
