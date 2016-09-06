@@ -10,36 +10,40 @@ class SmokerStat < ActiveRecord::Base
     location == "city" ? round_up(self.amount.to_f * 0.60) : round_up(self.amount.to_f * 0.35)
   end
 
-  def self.daily_cost_ave(user, location)
-    costs = SmokerStat.find_user_stats(user).map { |stat| stat.cost(location) }
-    costs.reduce(0) { |sum, cost| sum + cost } / costs.count
+  def self.user_daily_cost_ave(user, location)
+    stats = user_stats(user)
+    costs = location_costs(stats, location)
+    find_average(costs)
   end
 
-  def self.daily_amount_ave(user)
-    amounts = SmokerStat.find_user_stats(user).map { |stat| stat.amount }
-    amounts.reduce(0) { |sum, amount| sum + amount } / amounts.count
+  def self.user_daily_amount_ave(user)
+    stats = user_stats(user)
+    amounts = gather_amounts(stats)
+    find_average(amounts)
   end
 
-  def self.year_amount(year, user)
-    amounts = SmokerStat.find_year_stats(user, year).map { |stat| stat.amount }
-    amounts.reduce(0) { |sum, amount| sum + amount }
+  def self.user_year_amount(year, user)
+    stats = year_stats(user, year)
+    amounts = gather_amounts(stats)
+    reduce_amounts(amounts)
   end
 
-  def self.year_cost(year, user, location)
-    amounts = SmokerStat.find_year_stats(user, year).map { |stat| stat.cost(location)}
-    amounts.reduce(0) { |sum, amount| sum + amount }
+  def self.user_year_cost(year, user, location)
+    stats = year_stats(user, year)
+    amounts = location_costs(stats)
+    reduce_amounts(amounts)
   end
 
   private
 
-    def self.find_user_stats(user)
+    def self.user_stats(user)
       user_stats = SmokerStat.where(user_id: user.id)
       return 0 if user_stats == []
       user_stats
     end
 
-    def self.find_year_stats(user, year)
-      user_stats = SmokerStat.find_user_stats(user)
+    def self.year_stats(user, year)
+      user_stats = user_stats(user)
       user_stats.select { |stat| stat.date && stat.date.include?(year) }
     end
 
@@ -53,6 +57,19 @@ class SmokerStat < ActiveRecord::Base
       end
     end
 
+    def self.reduce_amounts(amounts)
+      amounts.reduce(0) { |sum, amount| sum + amount }
+    end
 
+    def self.find_average(array)
+      reduce_amounts(array) / array.count
+    end
 
+    def self.gather_amounts(stats)
+      stats.map { |stat| stat.amount }
+    end
+
+    def self.location_costs(stats, location)
+      stats.map { |stat| stat.cost(location)}
+    end
 end
