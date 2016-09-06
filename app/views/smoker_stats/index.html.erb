@@ -1,52 +1,59 @@
-<div class="container-fluid">
+<div class="container">
 
   <div class="col-md-2">
     <%= render 'shared/side_navbar' %>
     <div class="row">
-      <div class="col-md-2">
-        <%= link_to 'Add Stat', new_user_smoker_stat_path(current_user), class: "btn btn-default side-nav-btn" %>
+      <%= link_to 'Add Stat', new_user_smoker_stat_path(current_user), class: "btn btn-default side-nav-btn" %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-3 head">DATE</div>
+      <div class="col-md-3 head">AMOUNT</div>
+      <div class="col-md-3 head">CITY COST</div>
+      <div class="col-md-3 head">BURBS COST</div>
+    </div>
+
+    <div class="pre-scrollable">
+      <% SmokerStat.order(current_user).each do |stat| %>
+      <div class="row">
+        <div class="col-md-3"><%= link_to "#{stat.date}", edit_user_smoker_stat_path(current_user, stat) %></div>
+        <div class="col-md-3"><%= stat.amount %></div>
+        <div class="col-md-3"><%= stat.cost("city") %></div>
+        <div class="col-md-3"><%= stat.cost("burbs") %></div>
       </div>
+      <% end %>
+    </div>
+
+    <div class="row" id="totals">
+      <div class="col-md-3 head">Totals:</div>
+      <div class="col-md-3"><%=  %></div>
+      <div class="col-md-3"></div>
+      <div class="col-md-3"></div>
     </div>
   </div>
 
-  <div class="col-md-7">
+  <div class="col-md-4">
     <div class="row">
-      <div class="col-md-1 head">DATE</div>
-      <div class="col-md-1 head">AMOUNT</div>
-      <div class="col-md-2 head">CITY COST</div>
-      <div class="col-md-2 head">BURBS COST</div>
-    </div>
-
-    <% smoker_stats_order(current_user).each do |stat| %>
-    <div class="row">
-      <div class="col-md-1"><%= link_to "#{stat.date}", edit_user_smoker_stat_path(current_user, stat) %></div>
-      <div class="col-md-1"><%= stat.amount %></div>
-      <div class="col-md-2"><%= cost("city", stat.amount) %></div>
-      <div class="col-md-2"><%= cost("burbs", stat.amount) %></div>
-    </div>
-    <% end %>
-  </div>
-
-  <div class="col-md-3">
-    <div class="row">
-      <div class="col-md-6">DAILY AVERAGE:</div>
-      <div class="col-md-6"><%= daily_amount_ave(current_user) %></div>
-      <div class="col-md-6">DAILY COST (CITY):</div>
-      <div class="col-md-6"><%= daily_cost_ave(current_user, "city") %></div>
-      <div class="col-md-6">DAILY COST (BURBS):</div>
-      <div class="col-md-6"><%= daily_cost_ave(current_user, "burbs") %></div>
-      <div class="col-md-6">YTD AMOUNT:</div>
-      <div class="col-md-6"><%= year_amount(current_year, current_user) %></div>
-      <div class="col-md-6">YTD COST (CITY):</div>
-      <div class="col-md-6"><%= cost("city", year_amount(current_year, current_user))  %></div>
-      <div class="col-md-6">YTD COST (BURBS):</div>
-      <div class="col-md-6"><%= cost("burbs", year_amount(current_year, current_user))  %></div>
-      <div class="col-md-6">LAST YEAR AMOUNT:</div>
-      <div class="col-md-6"><%= year_amount(last_year, current_user) %></div>
-      <div class="col-md-6">LYR COST (CITY):</div>
-      <div class="col-md-6"><%= cost("city", year_amount(last_year, current_user)) %></div>
-      <div class="col-md-6">LYR COST (BURBS):</div>
-      <div class="col-md-6"><%= cost("burbs", year_amount(last_year, current_user)) %></div>
+      <div class="col-md-7">DAILY AMOUNT AVE:</div>
+      <div class="col-md-5"><%= SmokerStat.user_daily_amount_ave(current_user) %></div>
+      <div class="col-md-7">DAILY AVE COST (CITY):</div>
+      <div class="col-md-5">$ <%= SmokerStat.user_daily_cost_ave(current_user, "city") %></div>
+      <div class="col-md-7">DAILY AVE COST (BURBS):</div>
+      <div class="col-md-5">$ <%= SmokerStat.user_daily_cost_ave(current_user, "burbs") %></div>
+      <div class="col-md-7">YTD AMOUNT:</div>
+      <div class="col-md-5"><%= SmokerStat.user_year_amount(current_year, current_user) %></div>
+      <div class="col-md-7">YTD COST (CITY):</div>
+      <div class="col-md-5">$ <%= SmokerStat.user_year_cost(current_year, current_user, "city")  %></div>
+      <div class="col-md-7">YTD COST (BURBS):</div>
+      <div class="col-md-5">$ <%= SmokerStat.user_year_cost(current_year, current_user, "burbs")  %></div>
+      <div class="col-md-7">LAST YEAR AMOUNT:</div>
+      <div class="col-md-5"><%= SmokerStat.user_year_amount(last_year, current_user) %></div>
+      <div class="col-md-7">LYR COST (CITY):</div>
+      <div class="col-md-5">$ <%= SmokerStat.user_year_cost(last_year, current_user, "city") %></div>
+      <div class="col-md-7">LYR COST (BURBS):</div>
+      <div class="col-md-5">$<%= SmokerStat.user_year_cost(last_year, current_user, "city") %></div>
     </div>
   </div>
 </div>
