@@ -8,10 +8,6 @@ class SmokerStat < ActiveRecord::Base
   validates :amount, numericality: true
   validates :amount, length: { maximum: 3 }
 
-  def self.order(user)
-    SmokerStat.where(user_id: user.id).order(date: "ASC")
-  end
-
   def cost(location)
     return 0 if self.amount == nil
     location == "city" ? round_up(self.amount.to_f * 0.60) : round_up(self.amount.to_f * 0.35)
@@ -27,19 +23,17 @@ class SmokerStat < ActiveRecord::Base
     find_average(amounts)
   end
 
-  def self.user_amount(hash)
+  def self.user_amount(hash) #user, year
     amounts = gather_amounts(user_stats(hash))
     reduce_amounts(amounts)
   end
 
-  def self.user_cost(hash)
+  def self.user_cost(hash) #user, year, location
     amounts = location_costs(user_stats(hash), hash[:location])
     reduce_amounts(amounts)
   end
 
-  def self.amounts(hash)
 
-  end
 
   private
 

@@ -3,7 +3,7 @@ class SmokerStatsController < ApplicationController
   before_action :find_smoker_stat, only: [:edit, :update, :destroy]
 
   def index
-    @smokerstats = @user.smoker_stats
+    @smoker_stats = SmokerStat.where(user_id: @user.id).order(date: "ASC")
   end
 
   def new
