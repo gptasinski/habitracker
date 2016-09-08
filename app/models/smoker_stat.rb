@@ -8,11 +8,6 @@ class SmokerStat < ActiveRecord::Base
   validates :amount, numericality: true
   validates :amount, length: { maximum: 3 }
 
-
-  def date_format_validation
-
-  end
-
   def self.order(user)
     SmokerStat.where(user_id: user.id).order(date: "ASC")
   end
@@ -22,47 +17,36 @@ class SmokerStat < ActiveRecord::Base
     location == "city" ? round_up(self.amount.to_f * 0.60) : round_up(self.amount.to_f * 0.35)
   end
 
-  def self.user_daily_cost_ave(user, location)
-    costs = location_costs(user_stats(user), location)
+  def self.user_daily_cost_ave(hash)
+    costs = location_costs(user_stats(hash), hash[:location])
     find_average(costs)
   end
 
-  def self.user_daily_amount_ave(user)
-    amounts = gather_amounts(user_stats(user))
+  def self.user_daily_amount_ave(hash)
+    amounts = gather_amounts(user_stats(hash))
     find_average(amounts)
   end
 
-  def self.user_year_amount(year, user)
-    amounts = gather_amounts(year_stats(user, year))
+  def self.user_amount(hash)
+    amounts = gather_amounts(user_stats(hash))
     reduce_amounts(amounts)
   end
 
-  def self.user_total_amount(user)
-    amounts = gather_amounts(user_stats(user))
+  def self.user_cost(hash)
+    amounts = location_costs(user_stats(hash), hash[:location])
     reduce_amounts(amounts)
   end
 
-  def self.user_year_cost(year, user, location)
-    amounts = location_costs(year_stats(user, year), location)
-    reduce_amounts(amounts)
-  end
+  def self.amounts(hash)
 
-  def self.user_total_cost(user, location)
-    costs = location_costs(user_stats(user), location)
-    reduce_amounts(costs)
   end
 
   private
 
-    def self.user_stats(user)
-      user_stats = SmokerStat.where(user_id: user.id)
+    def self.user_stats(hash)
+      user_stats = SmokerStat.where(user_id: hash[:user].id)
       return 0 if user_stats == []
-      user_stats
-    end
-
-    def self.year_stats(user, year)
-      user_stats = user_stats(user)
-      user_stats.select { |stat| stat.date && stat.date[6..7] == (year) }
+      hash[:year] ? user_stats.select { |stat| stat.date && stat.date[6..7] == hash[:year] } : user_stats
     end
 
     def round_up(num)
