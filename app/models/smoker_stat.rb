@@ -1,13 +1,12 @@
 class SmokerStat < ActiveRecord::Base
   belongs_to :user
 
-  validates :date, presence: true
+  validates :date, :amount, presence: true
   validates :date, uniqueness: true
-  validates :amount, presence: true
   validates :date, format: { with: /\A\d{2}.\d{2}.\d{2}\z/,
                              message: "must be in the format of 'mm.dd.yy'."}
-  validates :amount, format: { with: /\A\d+\z/,
-                               message: "has to be a number. "}
+  validates :amount, numericality: true
+  validates :amount, length: { maximum: 3 }
 
 
   def date_format_validation
@@ -38,9 +37,19 @@ class SmokerStat < ActiveRecord::Base
     reduce_amounts(amounts)
   end
 
+  def self.user_total_amount(user)
+    amounts = gather_amounts(user_stats(user))
+    reduce_amounts(amounts)
+  end
+
   def self.user_year_cost(year, user, location)
     amounts = location_costs(year_stats(user, year), location)
     reduce_amounts(amounts)
+  end
+
+  def self.user_total_cost(user, location)
+    costs = location_costs(user_stats(user), location)
+    reduce_amounts(costs)
   end
 
   private
@@ -53,7 +62,7 @@ class SmokerStat < ActiveRecord::Base
 
     def self.year_stats(user, year)
       user_stats = user_stats(user)
-      user_stats.select { |stat| stat.date && stat.date.include?(year) }
+      user_stats.select { |stat| stat.date && stat.date[6..7] == (year) }
     end
 
     def round_up(num)
@@ -81,4 +90,6 @@ class SmokerStat < ActiveRecord::Base
     def self.location_costs(stats, location)
       stats.map { |stat| stat.cost(location)}
     end
+
+
 end
