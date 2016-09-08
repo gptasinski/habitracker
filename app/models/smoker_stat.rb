@@ -1,6 +1,19 @@
 class SmokerStat < ActiveRecord::Base
   belongs_to :user
 
+  validates :date, presence: true
+  validates :date, uniqueness: true
+  validates :amount, presence: true
+  validates :date, format: { with: /\A\d{2}.\d{2}.\d{2}\z/,
+                             message: "must be in the format of 'mm.dd.yy'."}
+  validates :amount, format: { with: /\A\d+\z/,
+                               message: "has to be a number. "}
+
+
+  def date_format_validation
+
+  end
+
   def self.order(user)
     SmokerStat.where(user_id: user.id).order(date: "ASC")
   end

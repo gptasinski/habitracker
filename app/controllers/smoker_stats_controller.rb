@@ -14,9 +14,9 @@ class SmokerStatsController < ApplicationController
   end
 
   def create
-    @smokerstat = SmokerStat.new(smoker_stat_params)
-    if @smokerstat.save
-      @user.smoker_stats << @smokerstat
+    @smoker_stat = SmokerStat.new(smoker_stat_params)
+    if @smoker_stat.save
+      @user.smoker_stats << @smoker_stat
       redirect_to user_smoker_stats_path(@user)
     else
       render 'new'

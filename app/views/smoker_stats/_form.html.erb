@@ -1,3 +1,15 @@
+<% if @smoker_stat.errors.any? %>
+<div id = "error_explanation">
+  <h4>Errors:</h4>
+  <ul>
+    <% @smoker_stat.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+  </div>
+<% end %>
+
+
 <div class="form-group">
   <%= form.label :date, class: "col-md-2 control-label" %>
     <div class="col-md-10">
