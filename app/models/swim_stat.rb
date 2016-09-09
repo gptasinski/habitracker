@@ -4,6 +4,8 @@ class SwimStat < ActiveRecord::Base
 
 
 
+
+
   def minutes(time)
     time.split(":")[0].to_i
   end
@@ -121,6 +123,30 @@ class SwimStat < ActiveRecord::Base
     swim_set_time
   end
 
+  # private
+    def self.target_times(distance, user)
+      stats = SwimStat.where(user_id: user.id)
+      stats.pluck(distance)
+    end
+
+    def self.reject_zeroes(times)
+      times.reject { |time| time == "0" || time == nil }
+    end
+
+    def self.user_best_time(distance, user)
+      times = target_times(distance, user)
+      reject_zeroes(times).min
+    end
+
+    def self.user_worst_time(distance, user)
+      times = target_times(distance, user)
+      reject_zeroes(times).max
+    end
+
+    def self.find_date_for(distance, best_time)
+      stat = SwimStat.find_by("#{distance}": best_time)
+      stat == nil ? "" : stat.date
+    end
 
 
 
