@@ -37,7 +37,7 @@ class SwimStat < ActiveRecord::Base
     stat == nil ? "" : stat.date
   end
 
-  private
+  # private
     def minutes(time)
       time.split(":")[0].to_i
     end

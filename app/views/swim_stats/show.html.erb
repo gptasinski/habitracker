@@ -3,10 +3,8 @@
   <div class="col-md-2">
     <%= render 'shared/side_navbar' %>
     <div class="row">
-      <!-- <div class="col-md-2"> -->
-        <%= link_to 'Edit Stat', edit_user_swim_stat_path(current_user, @swim_stat), class: "btn btn-default side-nav-btn" %>
-        <%= link_to 'Delete Stat', user_swim_stat_path(current_user, @swim_stat), method: :delete, data: { confirm: "Are you sure about deleting this stat?"}, class: "btn btn-default side-nav-btn" %>
-      <!-- </div> -->
+      <%= link_to 'Edit Stat', edit_user_swim_stat_path(current_user, @swim_stat), class: "btn btn-default side-nav-btn" %>
+      <%= link_to 'Delete Stat', user_swim_stat_path(current_user, @swim_stat), method: :delete, data: { confirm: "Are you sure about deleting this stat?"}, class: "btn btn-default side-nav-btn" %>
     </div>
   </div>
 

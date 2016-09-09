@@ -35,7 +35,7 @@ class SmokerStat < ActiveRecord::Base
 
 
 
-  private
+  # private
 
     def self.user_stats(hash)
       user_stats = SmokerStat.where(user_id: hash[:user].id)
