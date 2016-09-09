@@ -1,92 +1,99 @@
 require 'rails_helper'
-include SmokerStatHelper
-
-
-describe "SmokerStat" do
-  let(:user) { User.create(name: "Greg", email: "greg@gmail.com", password: "123")}
-  let(:test_one) { SmokerStat.create(user_id: user.id, date: "04.14.2014", amount: 14) }
-  let(:test_two) { SmokerStat.create(user_id: user.id, date: "03.15.2015", amount: 15) }
-  let(:test_three) { SmokerStat.create(user_id: user.id, date: "04.15.2015", amount: 16) }
 
 
 
-  it "has a string date" do
-    expect(test_one.date).to be_a(String)
-  end
+RSpec.describe SmokerStat, type: :model do
+  let!(:user) { User.create(name: "Test Subject", email: "test@gmail.com", password: "123") }
+  let!(:one) { SmokerStat.create(user_id: user.id, amount: 16, date: "09.02.16") }
+  let!(:two) { SmokerStat.create(user_id: user.id, amount: 17, date: "09.03.16") }
+  let!(:three) { SmokerStat.create(user_id: user.id, amount: 18, date: "09.04.16") }
+  let!(:four) { SmokerStat.create(user_id: user.id, amount: 12, date: "09.04.15") }
 
-  it "has an integer amount" do
-    expect(test_one.amount).to be_a(Integer)
-  end
 
-  describe"#smoker_stats_order" do
-    it "orders a given user's smoker_stats by date, oldest to newest" do
-      user.smoker_stats << test_one << test_two << test_three
-      first = smoker_stats_order(user).first.date
-      last = smoker_stats_order(user).last.date
-      expect(first).to be < last
+  describe "Validations" do
+    it "is not valid without an amount" do
+      one.amount = nil
+      expect(one).to_not be_valid
     end
-  end
 
-  describe "#round_up" do
-    it "rounds any float up to the next whole integer" do
-      expect(round_up(1.1)).to be(2)
-      expect(round_up(1.49)).to be(2)
-      expect(round_up(1.00001)).to be(2)
-      expect(round_up(1.9)).to be(2)
+    it "is not valid without a date" do
+      one.date = nil
+      expect(one).to_not be_valid
+    end
+
+    it "is valid with valid attributes" do
+      expect(one).to be_valid
     end
   end
 
   describe "#cost" do
-    it "finds the cost of a given amount purchased in the city" do
-      expect(cost("city", test_one.amount)).to eq("9")
+    it "returns an integer" do
+      expect(one.cost("city")).to be_an(Integer)
     end
 
-    it "finds the cost of a given amount purchased in the burbs" do
-      expect(cost("burbs", test_one.amount)).to eq("5")
+    it "returns a rounded cost relative to the amount of a SmokerStat based on location" do
+      expect(one.cost("city")).to eq(10)
+      expect(one.cost("burbs")).to eq(6)
     end
   end
 
-  describe "#daily_amount_ave" do
-    it "returns 0 if there are not smoker_stats associated with the user" do
-      expect(daily_amount_ave(user)).to eq(0)
+  describe ".user_daily_cost_ave" do
+    it "returns an integer" do
+      expect(SmokerStat.user_daily_cost_ave(user: user)).to be_an(Integer)
     end
-    it "returns average amount of cigs smoked in a day" do
-      user.smoker_stats << test_one << test_two << test_three
-      expect(daily_amount_ave(user)).to eq(15)
+
+    it "returns the average cost per date for a SmokerStat amount for given user" do
+      expect(SmokerStat.user_daily_cost_ave(user: user)).to be(6)
     end
   end
 
-  describe "#daily_cost_ave" do
-    it "returns 0 if there are not smoker_stats associated with the user" do
-      expect(daily_cost_ave(user, "city")).to eq(0)
-      expect(daily_cost_ave(user, "burbs")).to eq(0)
+  describe ".user_daily_amount_ave" do
+    it "returns an integer" do
+      expect(SmokerStat.user_daily_amount_ave(user: user)).to be_an(Integer)
     end
 
-    it "returns the average cost of cigs smoked by a user in a day rounded up on a dollar" do
-      user.smoker_stats << test_one << test_two << test_three
-      expect(daily_cost_ave(user, "city")).to eq(9)
-      expect(daily_cost_ave(user, "burbs")).to eq(5)
+    it "returns the average of amounts for SmokerStats belonging to a user" do
+      expect(SmokerStat.user_daily_amount_ave(user: user)).to eq((16 + 17+ 18 + 12) / 4)
     end
   end
 
-  describe "#current_year" do
-    it "returns the last two digits of the current year as a string" do
-      expect(current_year).to eq("16")
+  describe ".user_amount" do
+    it "returns an integer" do
+      expect(SmokerStat.user_amount(user: user)).to be_an(Integer)
+    end
+
+    it "returns the total of amounts from SmokerStats belonging to a user" do
+      expect(SmokerStat.user_amount(user: user)).to be(63)
+    end
+
+    it "can return the total of amounts from SmokerStats belonging to a user for given specific year" do
+      expect(SmokerStat.user_amount(user: user, year: "16")).to be(51)
     end
   end
 
-  describe "#last_year" do
-    it "returns the last two digits of the last year as a string" do
-      expect(last_year).to eq("15")
+  describe ".user_cost" do
+    it "returns an integer" do
+      expect(SmokerStat.user_cost(user: user, year: "16", location: "city")).to be_an(Integer)
+    end
+
+    it "returns the total cost of SmokerStats belonging to given user for a given location" do
+      expect(SmokerStat.user_cost(user: user, location: "burbs")).to be(24)
+    end
+
+    it "returns the total cost of SmokerStats belonging to a given user for a given location in a given year" do
+      expect(SmokerStat.user_cost(user: user, year: "15", location: "city")).to be(8)
     end
   end
 
-  describe "#year_amount" do
-    it "returns the amount of cigs smoked in a specified year for a given user" do
-      user.smoker_stats << test_one << test_two << test_three
-      expect(year_amount("2014", user)).to eq(14)
-      expect(year_amount("2015", user)).to eq(31)
+  describe ".user_stats" do
+    it "returns all SmokerStats belonging to a given user if no year is given" do
+      expect(SmokerStat.user_stats(user: user).length).to be(4)
+    end
+
+    it "retunrs SmokerStats belonging to a given user for a given year" do
+      expect(SmokerStat.user_stats(user: user, year: "15").length).to be(1)
     end
   end
+
 
 end

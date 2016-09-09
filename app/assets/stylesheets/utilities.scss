@@ -21,3 +21,21 @@ body {
   border-top: 1px solid black;
   border-bottom: 1px solid black;
 }
+
+#error-box {
+  border: 1px solid #ED2B34;
+  border-top: none;
+  margin-bottom: 5%;
+}
+
+#error-head {
+  background-color: #ED2B34;
+  padding-left: 2%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+
+#error-msg  {
+  font-weight: bold;
+  color: #ED2B34;
+}
