@@ -33,16 +33,13 @@ class SmokerStat < ActiveRecord::Base
     reduce_amounts(amounts)
   end
 
+  def self.user_stats(hash)
+    user_stats = SmokerStat.where(user_id: hash[:user].id)
+    return 0 if user_stats == []
+    hash[:year] ? user_stats.select { |stat| stat.date && stat.date[6..7] == hash[:year] } : user_stats
+  end
 
-
-  # private
-
-    def self.user_stats(hash)
-      user_stats = SmokerStat.where(user_id: hash[:user].id)
-      return 0 if user_stats == []
-      hash[:year] ? user_stats.select { |stat| stat.date && stat.date[6..7] == hash[:year] } : user_stats
-    end
-
+  private
     def round_up(num)
       if /\.0\z/ =~ num.to_s
         num.round
@@ -68,6 +65,4 @@ class SmokerStat < ActiveRecord::Base
     def self.location_costs(stats, location)
       stats.map { |stat| stat.cost(location)}
     end
-
-
 end
