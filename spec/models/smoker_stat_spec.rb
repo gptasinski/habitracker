@@ -1,7 +1,5 @@
 require 'rails_helper'
 
-
-
 RSpec.describe SmokerStat, type: :model do
   let!(:user) { User.create(name: "Test Subject", email: "test@gmail.com", password: "123") }
   let!(:one) { SmokerStat.create(user_id: user.id, amount: 16, date: "09.02.16") }
@@ -11,13 +9,33 @@ RSpec.describe SmokerStat, type: :model do
 
 
   describe "Validations" do
+    it "is not valid without a date" do
+      one.date = nil
+      expect(one).to_not be_valid
+    end
+
     it "is not valid without an amount" do
       one.amount = nil
       expect(one).to_not be_valid
     end
 
-    it "is not valid without a date" do
-      one.date = nil
+    it "is not valid without a unique date" do
+      one.date = two.date
+      expect(one).to_not be_valid
+    end
+
+    it "is not valid without a properly formatted date" do
+      one.date = "10.10.2016"
+      expect(one).to_not be_valid
+    end
+
+    it "is not valid unless the amount is represented in numbers" do
+      one.amount = "twelve"
+      expect(one).to_not be_valid
+    end
+
+    it "is not valid if the amount exceeds three digits" do
+      one.amount = 1000
       expect(one).to_not be_valid
     end
 
@@ -90,10 +108,8 @@ RSpec.describe SmokerStat, type: :model do
       expect(SmokerStat.user_stats(user: user).length).to be(4)
     end
 
-    it "retunrs SmokerStats belonging to a given user for a given year" do
+    it "returns SmokerStats belonging to a given user for a given year" do
       expect(SmokerStat.user_stats(user: user, year: "15").length).to be(1)
     end
   end
-
-
 end
