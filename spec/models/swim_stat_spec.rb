@@ -3,8 +3,8 @@ require 'rails_helper'
 
 
 describe "Swim Stat" do
-  let(:user) { User.new(name: "Test Swimmer", email: "testswimmer@gmail.com", password: "123") }
-  let(:workout) { SwimStat.new(user_id: user.id,
+  let!(:user) { User.create(name: "Test Swimmer", email: "testswimmer@gmail.com", password: "123") }
+  let!(:workout) { SwimStat.create(user_id: user.id,
                                  date: "04.22.16",
                                  warm_50: "00:40.01",
                                  warm_100: "01:39.43",
@@ -22,6 +22,29 @@ describe "Swim Stat" do
                                  cool_200: "03:27.55",
                                  cool_100: "01:48.42",
                                  cool_50:  "00:48.88",
+                                 set_distance: 1600,
+                                 total_distance: 3200,
+                                 swim_time: "53:58.68",
+                                 total_time: "59:23.84"
+                                 )}
+  let!(:workout_two) { SwimStat.create(user_id: user.id,
+                                 date: "04.23.16",
+                                 warm_50: "00:34.01",
+                                 warm_100: "01:42.43",
+                                 warm_200: "03:12.89",
+                                 warm_400: "07:01.33",
+                                 pre_50: "00:48.95",
+                                 first_500: "08:15.91",
+                                 set_300: "03:31.59",
+                                 second_500: "08:19.82",
+                                 third_500: "08:24.38",
+                                 fourth_500: "0",
+                                 set_100: "01:27.61",
+                                 post_50: "00:29.65",
+                                 cool_400: "07:47.10",
+                                 cool_200: "03:07.55",
+                                 cool_100: "01:34.42",
+                                 cool_50:  "00:48.08",
                                  set_distance: 1600,
                                  total_distance: 3200,
                                  swim_time: "53:58.68",
@@ -147,6 +170,33 @@ describe "Swim Stat" do
   end
 
 
+  describe ".target_times" do
+    it "returns an array of times for a given distance for a given user" do
+      expect(SwimStat.target_times("first_500", user)).to eq(["08:15.66", "08:15.91"])
+    end
+  end
+
+  describe ".user_best_time" do
+    it "returns the fastest time for a given distance and user" do
+      expect(SwimStat.user_best_time("cool_50", user)).to eq("00:48.08")
+    end
+  end
+
+  describe ".user_worst_time" do
+    it "returns the slowest time for a given distance and user" do
+      expect(SwimStat.user_worst_time("set_100", user)).to eq("01:47.61")
+    end
+  end
+
+  describe ".find_date_for" do
+    it "returns the corresponding date for a matching distance and time for a given user" do
+      expect(SwimStat.find_date_for("third_500", "08:24.38")).to eq("04.23.16")
+    end
+  end
+
+
+
+  # =================================================
 
   describe ".minutes(time)" do
     it "finds the minutes value as a fixnum for a given stat's time" do
