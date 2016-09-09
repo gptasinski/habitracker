@@ -1,148 +1,23 @@
 <%= render partial: "shared/error_messages", locals: { object: @swim_stat } %>
 
-<div class="form-group">
-  <%= form.label :date, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :date, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :warm_50, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :warm_50, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :warm_100, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :warm_100, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :warm_200, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :warm_200, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :warm_400, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :warm_400, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :pre_50, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :pre_50, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :first_500, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :first_500, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :set_300, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :set_300, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :second_500, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :second_500, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :third_500, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :third_500, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :fourth_500, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :fourth_500, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :set_100, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :set_100, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :post_50, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :post_50, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :cool_400, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :cool_400, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :cool_200, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :cool_200, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :cool_100, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :cool_100, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :cool_50, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :cool_50, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :set_distance, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :set_distance, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :total_distance, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :total_distance, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :swim_time, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :swim_time, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
-
-<div class="form-group">
-  <%= form.label :total_time, class: "col-md-2 control-label text-right" %>
-  <div class="col-md-10">
-    <%= form.text_field :total_time, required: true, class: "col-md-4 form-control" %>
-  </div>
-</div>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :date } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :warm_50 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :warm_100 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :warm_200 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :warm_400 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :pre_50 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :first_500 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :set_300 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :second_500 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :third_500 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :fourth_500 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :set_100 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :post_50 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :cool_400 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :cool_200 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :cool_100 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :cool_50 } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :set_distance } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :total_distance } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :swim_time } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :total_time } %>
