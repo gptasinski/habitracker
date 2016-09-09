@@ -3,7 +3,7 @@ class SwimStatsController < ApplicationController
   before_action :find_swim_stat, except: [:new, :create]
 
   def index
-    @swim_stats = @user.swim_stats
+    @swim_stats = SwimStat.where(user_id: @user.id).order(created_at: "ASC")
   end
 
   def show
