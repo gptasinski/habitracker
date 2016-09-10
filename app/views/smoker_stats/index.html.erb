@@ -28,50 +28,32 @@
 
     <div class="row" id="totals">
       <div class="col-md-3 head">Totals:</div>
-      <div class="col-md-3"><%= @smoker_stats.user_amount(user: current_user) %></div>
-      <div class="col-md-3">$ <%= @smoker_stats.user_cost(user: current_user, location: "city") %></div>
-      <div class="col-md-3">$ <%= @smoker_stats.user_cost(user: current_user, location: "burbs") %></div>
+      <div class="col-md-3"><%= current_user_amount %></div>
+      <div class="col-md-3"><%= current_user_cost("city") %></div>
+      <div class="col-md-3"><%= current_user_cost("burbs") %></div>
     </div>
   </div>
 
   <div class="col-md-4">
     <div class="row">
-      <div class="col-md-8">DAILY AMOUNT AVE:</div>
-      <div class="col-md-4">
-        <%= @smoker_stats.user_daily_amount_ave(user: current_user) %>
-      </div>
-      <div class="col-md-8">DAILY AVE COST (CITY):</div>
-      <div class="col-md-4">
-        $ <%= @smoker_stats.user_daily_cost_ave(user: current_user, location: "city") %>
-      </div>
-      <div class="col-md-8">DAILY AVE COST (BURBS):</div>
-      <div class="col-md-4">
-        $ <%= @smoker_stats.user_daily_cost_ave(user: current_user, location: "burbs") %>
-      </div>
-      <div class="col-md-8">YTD AMOUNT:</div>
-      <div class="col-md-4">
-        <%= @smoker_stats.user_amount({user: current_user, year: current_year}) %>
-      </div>
-      <div class="col-md-8">YTD COST (CITY):</div>
-      <div class="col-md-4">
-        $ <%= @smoker_stats.user_cost(user: current_user, year: current_year, location: "city")  %>
-      </div>
-      <div class="col-md-8">YTD COST (BURBS):</div>
-      <div class="col-md-4">
-        $ <%= @smoker_stats.user_cost(user: current_user, year: current_year, location: "burbs")  %>
-      </div>
-      <div class="col-md-8">LAST YEAR AMOUNT:</div>
-      <div class="col-md-4">
-        <%= @smoker_stats.user_amount(user: current_user, year: last_year) %>
-      </div>
-      <div class="col-md-8">LYR COST (CITY):</div>
-      <div class="col-md-4">
-        $ <%= @smoker_stats.user_cost(user: current_user, year: last_year, location: "city") %>
-      </div>
-      <div class="col-md-8">LYR COST (BURBS):</div>
-      <div class="col-md-4">
-        $ <%= @smoker_stats.user_cost(user: current_user, year: last_year, location: "burbs") %>
-      </div>
+      <%= render partial: "averages_and_ytd",
+                 locals: { label: "DAILY AMOUNT AVE:" } %>
+      <%= render partial: "user_daily_ave_cost",
+                 locals: { label: "DAILY AVE COST (CITY)", location: "city" } %>
+      <%= render partial: "user_daily_ave_cost",
+                 locals: { label: "DAILY AVE COST (BURBS)", location: "burbs" } %>
+      <%= render partial: "user_amount",
+                 locals: { label: "YTD AMOUNT", year: current_year } %>
+      <%= render partial: "user_cost",
+                 locals: { label: "YTD COST (CITY)", year: current_year, location: "city" } %>
+      <%= render partial: "user_cost",
+                 locals: { label: "YTD COST (BURBS)", year: current_year, location: "burbs" } %>
+      <%= render partial: "user_amount",
+                 locals: { label: "LAST YEAR AMOUNT", year: last_year } %>
+      <%= render partial: "user_cost",
+                 locals: { label: "LYR COST (CITY)", year: last_year, location: "city" } %>
+      <%= render partial: "user_cost",
+                 locals: { label: "LYR COST (BURBS)", year: last_year, location: "burbs" } %>
     </div>
   </div>
 </div>
