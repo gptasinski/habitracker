@@ -1,9 +1,10 @@
-<% if flash[:message] %>
-  <div><%= flash[:message] %></div>
-<% end %>
+
+<%= render "shared/flash_message" %>
 
 <div class="container-fluid">
   <div class="col-md-2">
     <%= render '/shared/side_navbar' %>
   </div>
 </div>
+
+users#show
