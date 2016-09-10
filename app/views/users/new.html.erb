@@ -4,7 +4,7 @@
     <%= form_for :user, url: users_path, class: "form-horizontal" do |form| %>
       <%= render partial: "shared/form_group", locals: { form: form, attribute: :name } %>
       <%= render partial: "shared/form_group", locals: { form: form, attribute: :email } %>
-      <%= render partial: "shared/form_group", locals: { form: form, attribute: :password } %>
+      <%= render partial: "shared/form_group_password", locals: { form: form, attribute: :password } %>
       <%= render partial: "form_button" %>
     <% end %>
     </div>

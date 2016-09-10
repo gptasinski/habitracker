@@ -3,7 +3,7 @@
     <div class="col-md-offset-4 col-md-4">
       <%= form_for :session, class: "form-horizontal" do |form| %>
         <%= render partial: "shared/form_group", locals: { form: form, attribute: :email } %>
-        <%= render partial: "shared/form_group", locals: { form: form, attribute: :password } %>
+        <%= render partial: "shared/form_group_password", locals: { form: form, attribute: :password } %>
         <%= render partial: "form_button" %>
       <% end %>
     </div>
