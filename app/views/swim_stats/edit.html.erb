@@ -4,7 +4,7 @@
     <%= render 'shared/side_navbar' %>
     <div class="row">
       <%= link_to 'Edit Stat', edit_user_swim_stat_path(current_user, @swim_stat), class: "btn btn-default side-nav-btn" %>
-      <%= link_to 'Delete Stat', user_swim_stat_path(current_user, @swim_stat), method: :delete, data: { confirm: "Are you aure about deleting this stat?"}, class: "btn btn-default side-nav-btn" %>
+      <%= render partial: "shared/delete_stat_button", locals: { path: user_swim_stat_path(current_user, @swim_stat) } %>
     </div>
   </div>
 

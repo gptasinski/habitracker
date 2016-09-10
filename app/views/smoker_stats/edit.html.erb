@@ -2,7 +2,7 @@
   <div class="col-md-2">
     <%= render '/shared/side_navbar' %>
     <div class="row">
-      <%= link_to 'Delete Stat', user_smoker_stat_path(current_user, @smoker_stat), class: "btn btn-default side-nav-btn", method: :delete, data: { confirm: "Are you sure you want to do this?"} %>
+      <%= render partial: "shared/delete_stat_button", locals: { path: user_smoker_stat_path(current_user, @smoker_stat) } %>
     </div>
   </div>
 
