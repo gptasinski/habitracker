@@ -8,12 +8,8 @@
 
   <div class="col-md-offset-1 col-md-4">
     <%= form_for [current_user, @smoker_stat], method: :patch, class: "form-horizontal" do |form| %>
-      <%= render partial: 'form', locals: { form: form } %>
-      <div class="form-group">
-        <div class="col-md-offset-9 col-md-4">
-          <%= button_to 'Update Stat', new_user_smoker_stat_path(current_user, @smokerstat), class: "btn btn-default" %>
-        </div>
-      </div>
+      <%= render partial: "form", locals: { form: form } %>
+      <%= render partial: "form_button", locals: { message: "Update Stat"} %>
     <% end %>
   </div>
 </div>
