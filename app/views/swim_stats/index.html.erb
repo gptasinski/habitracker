@@ -1,11 +1,7 @@
 <div class="container-fluid">
-
-  <div class="col-md-2">
-    <%= render 'shared/side_navbar' %>
-    <div class="row">
-      <%= link_to 'Add Stat', new_user_swim_stat_path(current_user), class: "btn btn-default side-nav-btn" %>
-    </div>
-  </div>
+  <%= render partial: "shared/left_column",
+              locals: { message: "Add Stat",
+                        path: new_user_swim_stat_path(current_user) } %>
 
   <div class="col-md-7">
     <div class="row">
@@ -16,32 +12,51 @@
       <div class="col-md-2 head">SWIM TIME</div>
     </div>
 
-    <% @swim_stats.each do |stat| %>
-    <div class="row">
-      <div class="col-md-2"><%= link_to stat.date, user_swim_stat_path(current_user, stat) %></div>
-      <div class="col-md-3"><%= stat.set_distance %></div>
-      <div class="col-md-2"><%= stat.set_time %></div>
-      <div class="col-md-3"><%= stat.total_distance %></div>
-      <div class="col-md-2"><%= stat.swim_time %></div>
+    <div class="pre-scrollable">
+      <% @swim_stats.each do |stat| %>
+      <div class="row">
+        <div class="col-md-2"><%= link_to stat.date, user_swim_stat_path(current_user, stat) %></div>
+        <div class="col-md-3"><%= stat.set_distance %></div>
+        <div class="col-md-2"><%= stat.set_time %></div>
+        <div class="col-md-3"><%= stat.total_distance %></div>
+        <div class="col-md-2"><%= stat.swim_time %></div>
+      </div>
+      <% end %>
     </div>
-    <% end %>
+
+    <div class="row totals" >
+      <div class="col-md-3 head">Totals:</div>
+    </div>
+
   </div>
 
   <div class="col-md-3">
     <div class="row">
       <div class="head">USMS RECORDS</div>
-      <div class="col-md-offset-1">
-        50 M: 00:22.73 | 2009 | Felipe Delgado</div>
-      <div class="col-md-offset-1">
-        100 M: 00:50.72 | 2009 | Michael F Picotte</div>
-      <div class="col-md-offset-1">
-        200 M: 00:50.72 | 2003 | Erik Hochstein</div>
-      <div class="col-md-offset-1">
-        400 M: 03:57.77 | 2003 | Erik Hochstein</div>
-      <div class="col-md-offset-1">
-        800 M: 08:16.19 | 2009 | Alex G Kostich</div>
-      <div class="col-md-offset-1">
-        1600 M: 15:56.57 | 2009 | Alex G Kostich</div>
+        <%= render partial: "usms_record", locals: { distance: "50",
+                                                     time: "00:22.73",
+                                                     year: "2009",
+                                                     name: "Felipe Delgado" } %>
+        <%= render partial: "usms_record", locals: { distance: "100",
+                                                     time: "00:50.72",
+                                                     year: "2009",
+                                                     name: "Michael F Picotte" } %>
+        <%= render partial: "usms_record", locals: { distance: "200",
+                                                     time: "01:51.31",
+                                                     year: "2003",
+                                                     name: "Erik Hochstein" } %>
+        <%= render partial: "usms_record", locals: { distance: "400",
+                                                     time: "03:57.77",
+                                                     year: "2003",
+                                                     name: "Erik Hochstein" } %>
+        <%= render partial: "usms_record", locals: { distance: "800",
+                                                     time: "08:16.19",
+                                                     year: "2009",
+                                                     name: "Alex G Kostich" } %>
+        <%= render partial: "usms_record", locals: { distance: "1500",
+                                                     time: "15:56.57",
+                                                     year: "2009",
+                                                     name: "Alex G Kostich" } %>
     </div>
 
     <div class="row">
