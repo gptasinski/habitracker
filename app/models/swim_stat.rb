@@ -27,6 +27,7 @@ class SwimStat < ActiveRecord::Base
   end
 
   def self.find_date_for(distance, time)
+    return "" if time == nil
     stat = SwimStat.find_by("#{distance}": time)
     stat == nil ? "" : stat.date
   end
