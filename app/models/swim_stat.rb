@@ -2,14 +2,14 @@ class SwimStat < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :first_500, :second_500, :third_500, :fourth_500, :set_100, :cool_400, :cool_200, :cool_100, :cool_50, :set_distance, :set_time, :total_time, presence: true
-  validates :date, uniqueness: true
-  validates :date, format: { with: /\A\d{2}.\d{2}.\d{2}\z/,
-                             message: "must be in the format of 'mm.dd.yy'."}
-  validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :cool_400, :cool_200, :cool_100, :cool_50, :set_time, :total_time, format: { with: /\A\d{2}:\d{2}.\d{2}\z/, message: "must be in the format of 'nn:nn.nn'"}
-  validates :set_distance, numericality: true
-  validates :set_distance, length: { minimum: 3 }
-  validates :set_distance, length: { maximum: 4 }
+  # validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :first_500, :second_500, :third_500, :fourth_500, :set_100, :cool_400, :cool_200, :cool_100, :cool_50, :set_distance, :set_time, :total_time, presence: true
+  # validates :date, uniqueness: true
+  # validates :date, format: { with: /\A\d{2}.\d{2}.\d{2}\z/,
+  #                            message: "must be in the format of 'mm.dd.yy'."}
+  # validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :cool_400, :cool_200, :cool_100, :cool_50, :set_time, :total_time, format: { with: /\A\d{2}:\d{2}.\d{2}\z/, message: "must be in the format of 'nn:nn.nn'"}
+  # validates :set_distance, numericality: true
+  # validates :set_distance, length: { minimum: 3 }
+  # validates :set_distance, length: { maximum: 4 }
 
   def self.target_times(distance, user)
     stats = SwimStat.where(user_id: user.id)
@@ -76,14 +76,28 @@ class SwimStat < ActiveRecord::Base
     revert_to_minutes(time_in_hundredths)
   end
 
+  def stat_times_to_a
+    times = [self.warm_50, self.warm_100, self.warm_200, self.warm_400, self.pre_50,
+             self.first_500, self.second_500, self.third_500, self.fourth_500, self.set_100,
+             self.post_50, self.cool_400, self.cool_200, self.cool_100, self.cool_50]
+  end
+
+  def find_rest
+    find_time(times)
+  end
+
   def set_800_time
-    if self.set_300 != "0"
+    if self.set_300 == "00:00.00"
+      self.first_800_time = nil
+    else
       self.first_800_time = find_time([self.first_500, self.set_300])
     end
   end
 
   def set_second_800_time
-    if self.set_100 != "0"
+    if self.first_800_time == nil
+      self.second_800_time = nil
+    else
       mile = convert_to_hundredths(self.mile_time)
       first_800 = convert_to_hundredths(self.first_800_time)
       second_in_hunds = mile - first_800
@@ -92,31 +106,41 @@ class SwimStat < ActiveRecord::Base
   end
 
   def set_km_time
-    if self.first_500 != "0" && self.second_500 != "0"
+    if self.first_500 == "00:00.00" && self.second_500 == "00:00.00"
+      self.first_km_time = nil
+    else
       self.first_km_time = find_time([self.first_500, self.second_500])
     end
   end
 
   def set_1500_time
-    if self.third_500 != "0"
+    if self.third_500 == "00:00.00"
+      self.time_1500 = nil
+    else
       self.time_1500 = find_time([self.first_500, self.second_500, self.third_500])
     end
   end
 
   def set_second_km_time
-    if self.fourth_500 != "0"
+    if self.fourth_500 == "00:00.00"
+      self.second_km_time = nil
+    else
       self.second_km_time = find_time([self.third_500, self.fourth_500])
     end
   end
 
   def set_2km_time
-    if self.second_km_time != nil
+    if self.second_km_time == nil
+      self.time_2km = nil
+    else
       self.time_2km = find_time([self.first_500, self.second_500, self.third_500, self.fourth_500])
     end
   end
 
   def set_mile_time
-    if self.set_100 != "0" || self.set_100 == nil
+    if self.set_100 == "00:00.00" || self.set_100 == nil
+      self.mile_time = nil
+    else
       self.mile_time = find_time([self.first_500, self.second_500, self.third_500, self.set_100])
     end
   end
@@ -133,7 +157,7 @@ class SwimStat < ActiveRecord::Base
     elsif self.set_distance == 2000
       self.set_time = set_2km_time
     else
-      self.set_time = "0"
+      self.set_time = "00:00.00"
     end
   end
 
