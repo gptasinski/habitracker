@@ -2,14 +2,14 @@ class SwimStat < ActiveRecord::Base
 
   belongs_to :user
 
-  # validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :first_500, :second_500, :third_500, :fourth_500, :set_100, :cool_400, :cool_200, :cool_100, :cool_50, :set_distance, :set_time, :total_time, presence: true
-  # validates :date, uniqueness: true
-  # validates :date, format: { with: /\A\d{2}.\d{2}.\d{2}\z/,
-  #                            message: "must be in the format of 'mm.dd.yy'."}
-  # validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :cool_400, :cool_200, :cool_100, :cool_50, :set_time, :total_time, format: { with: /\A\d{2}:\d{2}.\d{2}\z/, message: "must be in the format of 'nn:nn.nn'"}
-  # validates :set_distance, numericality: true
-  # validates :set_distance, length: { minimum: 3 }
-  # validates :set_distance, length: { maximum: 4 }
+  validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :first_500, :second_500, :third_500, :fourth_500, :set_100, :cool_400, :cool_200, :cool_100, :cool_50, :set_distance, :set_time, :total_time, presence: true
+  validates :date, uniqueness: true
+  validates :date, format: { with: /\A\d{2}.\d{2}.\d{2}\z/,
+                             message: "must be in the format of 'mm.dd.yy'."}
+  validates :warm_50, :warm_100, :warm_200, :warm_400, :pre_50, :cool_400, :cool_200, :cool_100, :cool_50, :set_time, :total_time, format: { with: /\A\d{2}:\d{2}.\d{2}\z/, message: "must be in the format of 'nn:nn.nn'"}
+  validates :set_distance, numericality: true
+  validates :set_distance, length: { minimum: 3 }
+  validates :set_distance, length: { maximum: 4 }
 
   def self.target_times(distance, user)
     stats = SwimStat.where(user_id: user.id)
