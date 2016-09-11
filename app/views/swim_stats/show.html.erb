@@ -37,6 +37,9 @@
       <%= render partial: "attribute_display", locals: { label: "MILE TIME", attribute: @swim_stat.mile_time } %>
       <%= render partial: "attribute_display", locals: { label: "SET TIME", attribute: @swim_stat.set_time } %>
       <%= render partial: "attribute_display", locals: { label: "SWIM TIME", attribute: @swim_stat.swim_time } %>
+      <% if @swim_stat.rest %>
+      <%= render partial: "attribute_display", locals: { label: "REST TIME", attribute: @swim_stat.rest } %>
+      <% end %>
       <%= render partial: "attribute_display", locals: { label: "TOTAL TIME", attribute: @swim_stat.total_time } %>
     </div>
   </div>
