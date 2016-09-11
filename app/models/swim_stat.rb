@@ -27,6 +27,7 @@ class SwimStat < ActiveRecord::Base
   end
 
   def self.find_date_for(distance, time)
+    return "" if time == nil
     stat = SwimStat.find_by("#{distance}": time)
     stat == nil ? "" : stat.date
   end
@@ -77,13 +78,27 @@ class SwimStat < ActiveRecord::Base
   end
 
   def stat_times_to_a
-    times = [self.warm_50, self.warm_100, self.warm_200, self.warm_400, self.pre_50,
+    [self.warm_50, self.warm_100, self.warm_200, self.warm_400, self.pre_50,
              self.first_500, self.second_500, self.third_500, self.fourth_500, self.set_100,
              self.post_50, self.cool_400, self.cool_200, self.cool_100, self.cool_50]
   end
 
   def find_rest
-    find_time(times)
+    rest = convert_to_hundredths(self.total_time) - add_times(self.stat_times_to_a)
+    revert_to_minutes(rest)
+  end
+
+  def find_swim_time
+    swim_time = convert_to_hundredths(self.total_time) - convert_to_hundredths(self.find_rest)
+    revert_to_minutes(swim_time)
+  end
+
+  def set_rest
+    self.rest = self.find_rest
+  end
+
+  def set_swim_time
+    self.swim_time = self.find_swim_time
   end
 
   def set_800_time
@@ -162,6 +177,8 @@ class SwimStat < ActiveRecord::Base
   end
 
   def set_times
+    set_rest
+    set_swim_time
     set_km_time
     set_second_km_time
     set_2km_time
