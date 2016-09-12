@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <div class="col-md-2">
     <%= render '/shared/side_navbar' %>
-    <div class="row">
+    <div class="row" id="d-btn">
       <%= render partial: "shared/delete_stat_button", locals: { path: user_smoker_stat_path(current_user, @smoker_stat) } %>
     </div>
   </div>
 
-  <div class="col-md-offset-1 col-md-4">
+  <div class="col-md-offset-1 col-md-4" id="smkr-edit">
     <%= form_for [current_user, @smoker_stat], method: :patch, class: "form-horizontal" do |form| %>
       <%= render partial: "form", locals: { form: form } %>
       <%= render partial: "form_button", locals: { message: "Update Stat"} %>
