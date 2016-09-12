@@ -4,7 +4,7 @@
                         path: new_user_swim_stat_path(current_user),
                         id: "swim-add" } %>
 
-  <div class="col-md-7">
+  <div class="col-md-7" id="swim-main">
     <div class="row">
       <div class="col-md-2 head">DATE</div>
       <div class="col-md-3 head">SET DISTANCE</div>
@@ -16,7 +16,7 @@
     <div class="pre-scrollable">
       <% @swim_stats.each do |stat| %>
       <div class="row">
-        <div class="col-md-2"><%= link_to stat.date, user_swim_stat_path(current_user, stat) %></div>
+        <div class="col-md-2"><%= link_to stat.date, user_swim_stat_path(current_user, stat), class: "swim-link" %></div>
         <div class="col-md-3"><%= stat.set_distance %></div>
         <div class="col-md-2"><%= stat.set_time %></div>
         <div class="col-md-3"><%= stat.total_distance %></div>
@@ -27,6 +27,12 @@
 
     <div class="row totals" >
       <div class="col-md-3 head">Totals:</div>
+    </div>
+
+    <div class="row" id="swim-space">
+      <div class="col-md-12">
+
+      </div>
     </div>
 
   </div>
@@ -59,6 +65,8 @@
                                                      year: "2009",
                                                      name: "Alex G Kostich" } %>
     </div>
+
+
 
     <div class="row">
       <div class="head">MY RECORDS</div>

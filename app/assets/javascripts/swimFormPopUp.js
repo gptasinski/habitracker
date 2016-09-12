@@ -11,15 +11,18 @@ $(document).ready(function () {
       });
 
       request.done(function (response) {
-        var form = $(response).find("#smkr-form");
-        $(form).removeClass("col-md-offset-1 col-md-4");
+        var form = $(response).find("#swim-form");
+        $(form).removeClass("col-md-10");
         $(form).addClass("row");
-        $(space).html(form);
+        $(form).addClass("pre-scrollable");
+
+        $("#swim-main").html(form);
+        $("#swim-main").css("border-bottom", "1px solid black");
       });
     });
   }
 
-  smokerFormPopUp(".add-btn", "#smkr-add", "#smkr-space");
+  smokerFormPopUp(".add-btn", "#swim-add", "#swim-space");
 });
 
 

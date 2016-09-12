@@ -1,12 +1,12 @@
 <div class="container-fluid">
   <div class="col-md-2">
     <%= render 'shared/side_navbar' %>
-    <div class="row">
+    <div class="row" id="swim-edit">
       <%= link_to 'Edit Stat', edit_user_swim_stat_path(current_user, @swim_stat), class: "btn btn-default side-nav-btn" %>
       <%= render partial: "shared/delete_stat_button", locals: { path: user_swim_stat_path(current_user, @swim_stat) } %>
     </div>
   </div>
-  <div class="col-md-10">
+  <div class="col-md-10" id="swim-show">
     <div class="col-md-6">
       <%= render partial: "attribute_display", locals: { label: "DATE", attribute: @swim_stat.date } %>
       <%= render partial: "attribute_display", locals: { label: "WARM UP 50", attribute: @swim_stat.warm_50 } %>
