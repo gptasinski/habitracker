@@ -14,6 +14,9 @@ $(document).ready(function () {
         var form = $(response).find("#smkr-form");
         $(form).removeClass("col-md-offset-1 col-md-4");
         $(form).addClass("row");
+        if($('#d-btn').length === 1) {
+          $("#d-btn").hide();
+        }
         $(space).html(form);
       });
     });

@@ -14,13 +14,19 @@ $(document).ready(function () {
         var form = $(response).find("#smkr-edit");
         var deleteButton = $(response).find("#d-btn");
 
+
         $(form).removeClass("col-md-offset-1 col-md-4");
         $(form).addClass("row");
         $(space).html(form);
 
         $(deleteButton).removeClass("row");
-        $("#link-row").append(deleteButton);
+        if($("#d-btn").length === 0) {
+          $("#smkr-add").hide();
+          $("#link-row").append(deleteButton);
+        }
+
       });
+
     });
   }
 
