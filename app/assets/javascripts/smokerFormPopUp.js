@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-  function helloFormsPopUp (parent, target) {
+  function smokerFormPopUp (parent, target, space) {
     $(parent).on("click", target, function (event) {
       event.preventDefault();
 
@@ -11,13 +11,15 @@ $(document).ready(function () {
       });
 
       request.done(function (response) {
-        $("#home-space").html(response);
+        var form = $(response).find("#smkr-form");
+        $(form).removeClass("col-md-offset-1 col-md-4");
+        $(form).addClass("row");
+        $(space).html(form);
       });
     });
   }
 
-  helloFormsPopUp(".navbar", "#login-btn");
-  helloFormsPopUp(".navbar", "#sign-up-btn");
+  smokerFormPopUp(".add-btn", "#smkr-add", "#smkr-space");
 
 });
 
