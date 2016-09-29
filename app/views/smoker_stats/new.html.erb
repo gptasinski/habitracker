@@ -8,7 +8,10 @@
   <div class="col-md-offset-1 col-md-4" id="smkr-form">
     <%= form_for [current_user, @smoker_stat], class: "form-horizontal" do |form| %>
       <%= render partial: "form", locals: { form: form } %>
-      <%= render partial: "form_button", locals: { message: "Add Stat"} %>
+      <%= render partial: "form_button",
+                  locals: { div_class: "col-md-offset-9 col-md-4",
+                            message: "Add Stat",
+                            path: new_user_smoker_stat_path(current_user, @smokerstat)} %>
     <% end %>
   </div>
 </div>
