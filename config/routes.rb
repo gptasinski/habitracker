@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :smoker_stats
     resources :swim_stats
+    resources :ped_stats
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
