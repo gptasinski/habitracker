@@ -12,7 +12,10 @@
     <div class="row">
       <%= form_for [current_user, @swim_stat], method: :patch, class: "form-horizontal" do |form| %>
         <%= render partial: "form", locals: { form: form } %>
-        <%= render partial: "form_button", locals: { message: "Update Stat"} %>
+        <%= render partial: "shared/form_button",
+                    locals: { div_class: "col-md-offset-10 col-md-2",
+                              message: "Update Stat",
+                              path: edit_user_swim_stat_path(current_user, @swim_stat)} %>
       <% end %>
     </div>
   </div>

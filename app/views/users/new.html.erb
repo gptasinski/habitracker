@@ -6,7 +6,10 @@
       <%= render partial: "shared/form_group", locals: { form: form, attribute: :name } %>
       <%= render partial: "shared/form_group", locals: { form: form, attribute: :email } %>
       <%= render partial: "shared/form_group_password", locals: { form: form, attribute: :password } %>
-      <%= render partial: "form_button" %>
+      <%= render partial: "shared/form_button",
+                  locals: { div_class: "col-md-offset-9 col-md-1",
+                            message: "Add User",
+                            path: new_user_path} %>
     <% end %>
     </div>
   </div>
