@@ -1,0 +1,42 @@
+
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+
+    <%= render partial: "shared/left_column",
+                locals: { message: "Add Stat",
+                          path: new_user_ped_stat_path(current_user),
+                          id: "ped-add"} %>
+
+
+  <div class="col-md-10">
+
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-2 head">Date</div>
+        <div class="col-md-2 head">Steps</div>
+        <div class="col-md-2 head">Time</div>
+        <div class="col-md-2 head">Distance</div>
+        <div class="col-md-2 head">Calories</div>
+      </div>
+    </div>
+
+    <% @ped_stats.each do |stat| %>
+    <div class="row">
+      <div class="col-md-offset-1 col-md-10">
+        <div class="col-md-2"><%= link_to stat.date, edit_user_ped_stat_path(current_user, stat) %></div>
+        <div class="col-md-2"><%= stat.steps %></div>
+        <div class="col-md-2"><%= stat.time %></div>
+        <div class="col-md-2"><%= stat.distance %></div>
+        <div class="col-md-2"><%= stat.calories %></div>
+      </div>
+    </div>
+    <% end %>
+
+  </div>
+
+</div>
+
+
+
+ped_stats#index

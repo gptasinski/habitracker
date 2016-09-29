@@ -1,0 +1,17 @@
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+  <div class="col-md-2">
+    <%= render '/shared/side_navbar' %>
+  </div>
+
+  <div class="col-md-offset-1 col-md-4" id="ped-form">
+    <%= form_for [current_user, @ped_stat], class: "form-horizontal" do |form| %>
+      <%= render partial: "form", locals: { form: form } %>
+      <%= render partial: "form_button", locals: { message: "Add Stat"} %>
+    <% end %>
+  </div>
+</div>
+
+
+ped_stats#new

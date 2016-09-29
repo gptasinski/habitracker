@@ -1,8 +1,18 @@
 
 <div class="row">
   <div class="col-md-12">
-    <div class="row"><%= link_to 'Home', user_path(current_user), class: "btn btn-default side-nav-btn" %></div>
-    <div class="row"><%= link_to 'Smoking Stats', user_smoker_stats_path(current_user), class: "btn btn-default side-nav-btn" %></div>
-    <div class="row"><%= link_to 'Swim Stats', user_swim_stats_path(current_user), class: "btn btn-default side-nav-btn" %></div>
+
+    <%= render partial: "shared/stats_link_to",
+                        locals: { link_title: "Home",
+                                  path: user_path(current_user)} %>
+    <%= render partial: "shared/stats_link_to",
+                        locals: { link_title: "Smoking Stats",
+                                  path: user_smoker_stats_path(current_user)} %>
+    <%= render partial: "shared/stats_link_to",
+                        locals: { link_title: "Swim Stats",
+                                  path: user_smoker_stats_path(current_user)} %>
+    <%= render partial: "shared/stats_link_to",
+                        locals: { link_title: "Ped Stats",
+                                  path: user_ped_stats_path(current_user)} %>
   </div>
 </div>
