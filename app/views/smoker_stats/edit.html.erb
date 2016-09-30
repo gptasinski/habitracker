@@ -2,7 +2,8 @@
   <div class="col-md-2">
     <%= render '/shared/side_navbar' %>
     <div class="row" id="d-btn">
-      <%= render partial: "shared/delete_stat_button", locals: { path: user_smoker_stat_path(current_user, @smoker_stat) } %>
+      <%= render partial: "shared/delete_stat_button",
+                  locals: { path: user_smoker_stat_path(current_user, @smoker_stat) } %>
     </div>
   </div>
 
@@ -12,7 +13,7 @@
       <%= render partial: "shared/form_button",
                   locals: { div_class: "col-md-offset-9 col-md-4",
                             message: "Update Stat",
-                            path: edit_user_smoker_stat_path(current_user, @smokerstat)} %>
+                            path: edit_user_smoker_stat_path(current_user, @smoker_stat)} %>
     <% end %>
   </div>
 </div>
