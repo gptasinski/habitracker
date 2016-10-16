@@ -31,6 +31,7 @@ class PedStatsController < ApplicationController
 
   def update
     @ped_stat = PedStat.find(params[:id])
+    # raise params.inspect
     if @ped_stat.update(ped_stat_params)
       flash[:message] = "The stat was updated successfully."
       redirect_to user_ped_stats_path

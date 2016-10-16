@@ -1,0 +1,10 @@
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+  <%= render partial: "shared/left_column",
+                locals: { message: "Add New Payment",
+                          path: new_user_debt_payment_path(current_user, @debt),
+                          id: "debt-add" } %>
+</div>
+
+payments#index

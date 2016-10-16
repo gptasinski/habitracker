@@ -1,0 +1,29 @@
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+  <%= render partial: "shared/left_column",
+                locals: { message: "Add New Debt",
+                          path: new_user_debt_path(current_user),
+                          id: "debt-add" } %>
+
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-3 head">Title</div>
+      <div class="col-md-2 head">Initial Amount</div>
+      <div class="col-md-2 head">Current Amount</div>
+      <div class="col-md-2 head">Target Payoff Date</div>
+    </div>
+
+    <% @debts.each do |debt| %>
+    <div class="row">
+      <div class="col-md-3"><%= link_to debt.title, user_debt_path(current_user, debt) %></div>
+      <div class="col-md-2"><%= debt.initial_amount %></div>
+      <div class="col-md-2"><%= debt.current_amount %></div>
+      <div class="col-md-2"><%= debt.target_payoff_date %></div>
+    </div>
+    <% end %>
+  </div>
+</div>
+
+debts#index
+

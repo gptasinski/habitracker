@@ -1,0 +1,16 @@
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+  <div class="col-md-2">
+    <%= render '/shared/side_navbar' %>
+  </div>
+
+  <div class="col-md-5">
+    <%= form_for [current_user, @debt, @payment], class: "form-horizontal" do |form| %>
+      <%= render partial: "form", locals: { form: form } %>
+      <%= render partial: "shared/form_button", locals: { div_class: "col-md-12", message: "Add Payment", path: new_user_debt_payment_path(current_user, @debt, @payment) } %>
+    <% end %>
+  </div>
+</div>
+
+payments#new

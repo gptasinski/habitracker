@@ -1,0 +1,24 @@
+
+
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+  <div class="col-md-2">
+    <%= render "shared/side_navbar" %>
+  </div>
+
+  <div class="col-md-10">
+    <%= form_for [current_user, @debt], method: :patch, class: "form-horizontal" do |form| %>
+      <%= render partial: "form", locals: { form: form } %>
+      <%= render partial: "shared/form_button", locals: { div_class: "col-md-offset-9 col-md-2",
+                                                          message: "Update Debt Account",
+                                                          path: edit_user_debt_path(current_user, @debt)} %>
+    <% end %>
+
+
+    <%= render partial: "shared/delete_stat_button", locals: { path: user_debt_path(current_user, @debt) } %>
+
+  </div>
+</div>
+
+debts#newdebts#edit

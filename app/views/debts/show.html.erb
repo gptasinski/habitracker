@@ -1,0 +1,56 @@
+<%= render "shared/flash_message" %>
+
+<div class="container-fluid">
+  <%= render partial: "shared/left_column",
+                locals: { message: "Edit Debt Account",
+                          path: edit_user_debt_path(current_user, @debt),
+                          id: ""} %>
+
+  <div class="col-md-10">
+    <div class="row">
+      <div class="col-md-3 head">Title</div>
+      <div class="col-md-3 head">Initial Amount</div>
+      <div class="col-md-3 head">Current Amount</div>
+      <div class="col-md-3 head">Target Payoff Date</div>
+    </div>
+    <div class="row">
+      <div class="col-md-3"><%= @debt.title %></div>
+      <div class="col-md-3"><%= @debt.initial_amount %></div>
+      <div class="col-md-3"><%= @debt.current_amount %></div>
+      <div class="col-md-3"><%= @debt.target_payoff_date %></div>
+    </div>
+
+    <div class="row" id="pmnts-row">
+      <div class="col-md-2">
+        <%= link_to "Log a New Payment", new_user_debt_payment_path(current_user, @debt, @payment), class: "btn btn-default btn-sm" %>
+      </div>
+      <div class="col-md-8 border">
+        <h4>Past Payments</h4>
+        <div class="row">
+          <div class="col-md-2 head">Date</div>
+          <div class="col-md-2 head">Amount</div>
+          <div class="col-md-6 head">Description</div>
+        </div>
+
+        <% @payments.each do |payment| %>
+        <div class="row">
+          <div class="col-md-2"><%= payment.date %></div>
+          <div class="col-md-2"><%= payment.amount %></div>
+          <div class="col-md-6"><%= payment.description %></div>
+          <div class="col-md-1">
+            <%= link_to "Edit", edit_user_debt_payment_path(current_user, @debt, payment), class: "btn btn-default btn-xs" %>
+
+          </div>
+        </div>
+        <% end %>
+      </div>
+
+    </div>
+
+
+
+  </div>
+</div>
+
+
+debts#show

@@ -1,0 +1,6 @@
+<%= render partial: "shared/error_messages", locals: { object: @debt } %>
+
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :title } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :initial_amount } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :current_amount } %>
+<%= render partial: "shared/form_group", locals: { form: form, attribute: :target_payoff_date } %>
