@@ -2,7 +2,7 @@ class PedStatsController < ApplicationController
   before_action :find_user
 
   def index
-    @ped_stats = @user.ped_stats
+    @ped_stats = @user.ped_stats.order(date: "ASC")
   end
 
   def show
