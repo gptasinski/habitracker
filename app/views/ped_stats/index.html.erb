@@ -10,31 +10,44 @@
 
 
   <div class="col-md-10">
-
     <div class="row">
       <div class="col-md-offset-1 col-md-10">
         <div class="col-md-2 head">Date</div>
         <div class="col-md-2 head">Steps</div>
         <div class="col-md-2 head">Time</div>
-        <div class="col-md-2 head">Distance</div>
+        <div class="col-md-2 head">Distance (m)</div>
         <div class="col-md-2 head">Calories</div>
       </div>
     </div>
 
-    <% @ped_stats.each do |stat| %>
-    <div class="row">
+    <div class="pre-scrollable">
+      <% @ped_stats.each do |stat| %>
+      <div class="row">
+        <div class="col-md-offset-1 col-md-10">
+          <div class="col-md-2"><%= link_to stat.date, edit_user_ped_stat_path(current_user, stat) %></div>
+          <div class="col-md-2"><%= stat.steps %></div>
+          <div class="col-md-2"><%= stat.time %></div>
+          <div class="col-md-2"><%= stat.distance %></div>
+          <div class="col-md-2"><%= stat.calories %></div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+
+    <div class="row totals">
       <div class="col-md-offset-1 col-md-10">
-        <div class="col-md-2"><%= link_to stat.date, edit_user_ped_stat_path(current_user, stat) %></div>
-        <div class="col-md-2"><%= stat.steps %></div>
-        <div class="col-md-2"><%= stat.time %></div>
-        <div class="col-md-2"><%= stat.distance %></div>
-        <div class="col-md-2"><%= stat.calories %></div>
+        <div class="col-md-2 head">Totals:</div>
+        <div class="col-md-2 head">total steps</div>
+        <div class="col-md-2 head">total time</div>
+        <div class="col-md-2 head">total distance</div>
+        <div class="col-md-2 head">total calories</div>
       </div>
     </div>
-    <% end %>
 
+    <div class="row">
+      <%= link_to 'By Day' %>
+    </div>
   </div>
-
 </div>
 
 

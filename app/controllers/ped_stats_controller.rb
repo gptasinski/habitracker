@@ -17,6 +17,7 @@ class PedStatsController < ApplicationController
     @ped_stat = PedStat.new(ped_stat_params)
     @ped_stat.set_user(@user)
     if @ped_stat.save
+      @ped_stat.set_distance
       flash[:message] = "The new stat was created successfully."
       redirect_to user_ped_stats_path
     else
